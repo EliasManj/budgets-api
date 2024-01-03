@@ -4,13 +4,12 @@ import (
 	"context"
 	"testing"
 
-	db "github.com/eliasmanj/budgets-api/db/sqlc"
 	"github.com/eliasmanj/budgets-api/utils"
 	"github.com/stretchr/testify/require"
 )
 
-func createRandomBudget(t *testing.T, user db.User) db.Budget {
-	arg := db.CreateBudgetParams{
+func createRandomBudget(t *testing.T, user User) Budget {
+	arg := CreateBudgetParams{
 		BudgetName:  utils.RandomString(10),
 		BudgetOwner: user.Username,
 		Amount:      utils.RandomMoney(),
@@ -34,7 +33,7 @@ func TestListBudgets(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		createRandomBudget(t, usr)
 	}
-	arg := db.ListBudgetsParams{
+	arg := ListBudgetsParams{
 		BudgetOwner: usr.Username,
 		Limit:       5,
 		Offset:      0,

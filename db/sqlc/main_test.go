@@ -6,11 +6,10 @@ import (
 	"os"
 	"testing"
 
-	db "github.com/eliasmanj/budgets-api/db/sqlc"
 	_ "github.com/lib/pq"
 )
 
-var testQueries *db.Queries
+var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
@@ -20,6 +19,6 @@ func TestMain(m *testing.M) {
 		log.Fatal("Cannot connect to DB: ", err)
 	}
 	// New Queries object
-	testQueries = db.New(testDB)
+	testQueries = New(testDB)
 	os.Exit(m.Run())
 }

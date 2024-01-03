@@ -4,13 +4,12 @@ import (
 	"context"
 	"testing"
 
-	db "github.com/eliasmanj/budgets-api/db/sqlc"
 	"github.com/eliasmanj/budgets-api/utils"
 	"github.com/stretchr/testify/require"
 )
 
-func createRandomAccount(t *testing.T, usr db.User) db.Account {
-	arg := db.CreateAccountParams{
+func createRandomAccount(t *testing.T, usr User) Account {
+	arg := CreateAccountParams{
 		AccountName:  utils.RandomString(7),
 		AccountOwner: usr.Username,
 		AccountType:  utils.RandomAccountType(),
@@ -36,7 +35,7 @@ func TestListAccounts(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		createRandomAccount(t, usr)
 	}
-	arg := db.ListAccountsParams{
+	arg := ListAccountsParams{
 		AccountOwner: usr.Username,
 		Limit:        5,
 		Offset:       0,

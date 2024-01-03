@@ -5,13 +5,12 @@ import (
 	"testing"
 	"time"
 
-	db "github.com/eliasmanj/budgets-api/db/sqlc"
 	"github.com/eliasmanj/budgets-api/utils"
 	"github.com/stretchr/testify/require"
 )
 
-func createRandomTransaction(t *testing.T, usr db.User, acc db.Account, budget db.Budget) db.Transaction {
-	arg := db.CreateTransactionParams{
+func createRandomTransaction(t *testing.T, usr User, acc Account, budget Budget) Transaction {
+	arg := CreateTransactionParams{
 		Description: utils.RandomString(15),
 		BudgetID:    budget.ID,
 		AccountID:   acc.ID,
@@ -56,7 +55,7 @@ func TestListTransactionsByBudget(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		createRandomTransaction(t, usr, acc, budget)
 	}
-	args := db.ListTransactionsByBudgetParams{
+	args := ListTransactionsByBudgetParams{
 		BudgetID: budget.ID,
 		Limit:    5,
 		Offset:   0,
@@ -79,7 +78,7 @@ func TestListTransactionsByAccount(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		createRandomTransaction(t, usr, acc, budget)
 	}
-	args := db.ListTransactionsByAccountParams{
+	args := ListTransactionsByAccountParams{
 		AccountID: acc.ID,
 		Limit:     5,
 		Offset:    0,
