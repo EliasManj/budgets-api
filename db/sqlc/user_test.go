@@ -4,13 +4,12 @@ import (
 	"context"
 	"testing"
 
-	db "github.com/eliasmanj/budgets-api/db/sqlc"
 	"github.com/eliasmanj/budgets-api/utils"
 	"github.com/stretchr/testify/require"
 )
 
-func createRandomUser(t *testing.T) db.User {
-	arg := db.CreateUserParams{
+func createRandomUser(t *testing.T) User {
+	arg := CreateUserParams{
 		Username:       utils.RandomUser(),
 		Email:          utils.RandomEmail(),
 		HashedPassword: utils.RandomString(10),
@@ -27,7 +26,7 @@ func TestListUsers(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		createRandomUser(t)
 	}
-	arg := db.ListUsersParams{
+	arg := ListUsersParams{
 		Limit:  5,
 		Offset: 0,
 	}
@@ -62,14 +61,14 @@ func TestCreateUser(t *testing.T) {
 
 func TestCreateDuplicateEmailUser(t *testing.T) {
 	email := utils.RandomEmail()
-	arg1 := db.CreateUserParams{
+	arg1 := CreateUserParams{
 		Username:       utils.RandomUser(),
 		Email:          email,
 		HashedPassword: utils.RandomString(10),
 	}
 	_, err := testQueries.CreateUser(context.Background(), arg1)
 	require.NoError(t, err)
-	arg2 := db.CreateUserParams{
+	arg2 := CreateUserParams{
 		Username:       utils.RandomUser(),
 		Email:          email,
 		HashedPassword: utils.RandomString(10),

@@ -10,4 +10,6 @@ sqlc:
 	cd db && sqlc generate && cd ..
 test:
 	go test -v -cover ./...
-.PHONY: migrateup migratedown createdb dropdb sqlc test
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/eliasmanj/budgets-api/db/sqlc Querier
+.PHONY: migrateup migratedown createdb dropdb sqlc test mock
